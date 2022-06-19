@@ -8,7 +8,7 @@ model = dict(
         type='mmcls.ShuffleNetV2',
         out_indices=(0, 1, 2),
         widen_factor=1.0,
-        act_cfg=dict(type='LeakyReLU')),
+        act_cfg=dict(type='LeakyReLU', negative_slope=0.1)),
     neck=dict(
         type='NANOPAN',
         in_channels=[116, 232, 464],
