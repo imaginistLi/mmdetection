@@ -5,9 +5,12 @@ import torch.nn as nn
 
 from mmcv.cnn import ConvModule, Scale, DepthwiseSeparableConvModule
 
+from ..builder import HEADS
 from .gfl_head import GFLHead
 
 
+
+@HEADS.register_module()
 class NanoDetHead(GFLHead):
     """NanoDetHead
 
