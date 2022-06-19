@@ -82,8 +82,7 @@ class NanoDetHead(GFLHead):
                     padding=1,
                     conv_cfg=self.conv_cfg,
                     norm_cfg=self.norm_cfg,
-                    act_cfg=self.act_cfg,
-                    dw_act_cfg=None
+                    act_cfg=self.act_cfg
                 )
             )
             if not self.share_cls_reg:
@@ -96,8 +95,7 @@ class NanoDetHead(GFLHead):
                     padding=1,
                     conv_cfg=self.conv_cfg,
                     norm_cfg=self.norm_cfg,
-                    act_cfg=self.act_cfg,
-                    dw_act_cfg=None
+                    act_cfg=self.act_cfg
                 )
             )
         return cls_convs, reg_convs
