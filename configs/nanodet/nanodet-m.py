@@ -7,22 +7,26 @@ _base_ = [
 # optimizer
 optimizer = dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001)
 
+img_norm_cfg = dict(
+    mean=[103.53, 116.28, 123.675], std=[57.375, 57.12, 58.395], to_rgb=False)
+
 test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
-        type='Resize',
+        type='MultiScaleFlipAug',
         img_scale=(320, 320),
-        keep_ratio=True),
-    dict(
-        type='Normalize',
-        mean=[103.53, 116.28, 123.675],
-        std=[57.375, 57.12, 58.395],
-        to_rgb=True),
-    dict(type='ImageToTensor', keys=['img']),
-    dict(type='Collect', keys=['img'])
+        flip=False,
+        transforms=[
+            dict(type='Resize', keep_ratio=True, interpolation='nearest'),
+            dict(type='RandomFlip'),
+            dict(type='Normalize', **img_norm_cfg),
+            dict(type='Pad', size_divisor=32),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='Collect', keys=['img']),
+        ])
 ]
 
-data_root = 'D:/dataset/coco'
+data_root = '/data/datasets/coco/'
 data = dict(
     test=dict(
         ann_file=data_root + 'annotations/instances_val2017.json',

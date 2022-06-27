@@ -265,8 +265,8 @@ class AnchorGenerator:
         stride_w, stride_h = self.strides[level_idx]
         # First create Range with the default dtype, than convert to
         # target `dtype` for onnx exporting.
-        shift_x = torch.arange(0, feat_w, device=device).to(dtype) * stride_w
-        shift_y = torch.arange(0, feat_h, device=device).to(dtype) * stride_h
+        shift_x = (torch.arange(0, feat_w, device=device) + 0.5).to(dtype) * stride_w
+        shift_y = (torch.arange(0, feat_h, device=device) + 0.5).to(dtype) * stride_h
 
         shift_xx, shift_yy = self._meshgrid(shift_x, shift_y)
         shifts = torch.stack([shift_xx, shift_yy, shift_xx, shift_yy], dim=-1)
